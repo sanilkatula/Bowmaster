@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Instantiates Prefab and launches in our forward direction using rigbod force
-/// </summary>
+
 public class PrefabLauncher : MonoBehaviour
 {
     public GameObject prefab;
@@ -24,7 +22,6 @@ public class PrefabLauncher : MonoBehaviour
         _bodyToLaunch = g.GetComponent<Rigidbody>();
         if(_bodyToLaunch == null)
         {
-            Debug.Log("prefab has no rigbod so well add one");
             _bodyToLaunch = g.AddComponent<Rigidbody>();
         }
     }

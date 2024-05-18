@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - 10pt
+  - 8pt
+  - 6pt
+  - 2pt
+  - Arrow
   layers:
   - Default
   - TransparentFX
