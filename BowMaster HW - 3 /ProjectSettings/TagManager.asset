@@ -9,6 +9,12 @@ TagManager:
   - 6pt
   - 2pt
   - Arrow
+  - bow
+  - grabPoint
+  - upper
+  - right
+  - left
+  - lower
   layers:
   - Default
   - TransparentFX

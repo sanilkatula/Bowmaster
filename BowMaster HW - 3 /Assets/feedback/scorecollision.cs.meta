@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9041c1a75599542d7bc8f7496c4c3c6b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - audio10pt: {fileID: 8682389731036223827, guid: 8bc09106a0364470b80eb4c7bf9269e8, type: 3}
+  - audio8pt: {fileID: 5874048907815067682, guid: 809fd2c43125d41569454ba67d9c9d60, type: 3}
+  - audio6pt: {fileID: 1729408762316816522, guid: f3af1092096e74587b650cefea4e58cc, type: 3}
+  - audio2pt: {fileID: 8813482728955664873, guid: 22cf46b732538427f95d52c5ad573aaf, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

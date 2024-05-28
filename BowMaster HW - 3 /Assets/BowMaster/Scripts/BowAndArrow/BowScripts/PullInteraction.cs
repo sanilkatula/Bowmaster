@@ -3,16 +3,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
 
-/// <summary>
-/// Checks for a "grab"(push a button like the trigger button) in a trigger collider and tracks the movement of your hand to "pull" in a direction and for a distance.
-/// I made it to pull a bowstring here, but could be used to pull open a menu, move a joystick, pull a rope, scale objects, even a pull to move locomotion system if the trigger was placed around the player
-/// Has exposed events for entering and exiting the triggerCollider, starting (must be in trigger collider) and releasing the grab. 
-/// Also exposes event that fires a normalised float each frame of the %distance between the initial grab and the new position of the pullTransform.
-/// </summary>
 public class PullInteraction : MonoBehaviour
 {
     public Transform pullTransform;
-
     public float maxDistance = 0.5f;
 
     public InputActionReference triggerActionL;
@@ -24,12 +17,15 @@ public class PullInteraction : MonoBehaviour
     public UnityEvent<float> endedGrabEvent;
     public UnityEvent<float> pullEvent;
 
-    Vector3 _initGrabPos;
-    bool _canGrab;
-    bool _isGrabbing;
+    public AudioSource audioToPause; // Audio 2
+    public AudioSource audioToPlay;  // Audio 3
+
+    private Vector3 _initGrabPos;
+    private bool _canGrab;
+    private bool _isGrabbing;
     
-    XRBaseInteractor interactor;
-    Transform grabberTransform;
+    private XRBaseInteractor interactor;
+    private Transform grabberTransform;
 
     void Start()
     {
@@ -41,7 +37,6 @@ public class PullInteraction : MonoBehaviour
         triggerActionL.action.canceled += EndGrab;
         triggerActionR.action.started += StartGrab;
         triggerActionR.action.canceled += EndGrab;
-        
     }
 
     void OnDestroy()
@@ -92,19 +87,38 @@ public class PullInteraction : MonoBehaviour
 
         _isGrabbing = true;
         startedGrabEvent?.Invoke();
+
+        // Audio Logic: Pause Audio 2 and Play Audio 3
+        if (audioToPause != null && audioToPause.isPlaying)
+        {
+            audioToPause.Pause();
+            Debug.Log("Audio 2 paused because string was grabbed with trigger button.");
+        }
+
+        if (audioToPlay != null)
+        {
+            audioToPlay.Play();
+            Debug.Log("Audio 3 started playing because string was grabbed with trigger button.");
+        }
     }
 
     void EndGrab(InputAction.CallbackContext ctx)
     {
         if (!_isGrabbing)
             return;
-        _isGrabbing = false;
 
+        _isGrabbing = false;
         endedGrabEvent?.Invoke(CalculatePullAmount());
+
+        // Audio Logic: Stop Audio 3
+        if (audioToPlay != null && audioToPlay.isPlaying)
+        {
+            audioToPlay.Stop();
+            Debug.Log("Audio 3 stopped because trigger button was released.");
+        }
 
         pullTransform.localPosition = _initGrabPos;
         grabberTransform = null;
-        
     }
 
     float CalculatePullAmount()
@@ -113,5 +127,4 @@ public class PullInteraction : MonoBehaviour
         pullAmount = Mathf.Clamp(pullAmount, 0.0f, 1.0f);
         return pullAmount;
     }
-
 }
