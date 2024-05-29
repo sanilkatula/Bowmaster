@@ -15,6 +15,10 @@ TagManager:
   - right
   - left
   - lower
+  - little_right
+  - little_left
+  - little_down
+  - little_up
   layers:
   - Default
   - TransparentFX

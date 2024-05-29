@@ -8,6 +8,7 @@ public class scorecollision : MonoBehaviour
     public AudioClip audioClip8pt;
     public AudioClip audioClip6pt;
     public AudioClip audioClip2pt;
+    public static string x = "";
 
     private AudioSource audioSource;
     public AudioSource audioSourceStop;
@@ -34,8 +35,12 @@ public class scorecollision : MonoBehaviour
         switch (gameObject.tag)
         {
             case "10pt":
-                scoremanager.AddScore(10 - 8);
-                Debug.Log("Score updated for 10pt hit.");
+                // scoremanager.AddScore(10 - 8);
+                scoremanager.AddScore(10);
+
+                scoremanager.AddMessage("10 points");
+                
+                // Debug.Log("Score updated for 10pt hit.");
                 if (audioClip10pt != null)
                 {
                     audioSource.PlayOneShot(audioClip10pt);
@@ -44,13 +49,15 @@ public class scorecollision : MonoBehaviour
                     audioSourceStop.Stop();
 
                 }
-                else
-                {
-                    Debug.LogError("Audio clip for 10pt is not assigned.");
-                }
+                // else
+                // {
+                //     Debug.LogError("Audio clip for 10pt is not assigned.");
+                // }
                 break;
             case "8pt":
-                scoremanager.AddScore(8 - 6);
+                // scoremanager.AddScore(8 - 6);
+                scoremanager.AddScore(8);
+                scoremanager.AddMessage("8 points");
                 Debug.Log("Score updated for 8pt hit.");
                 if (audioClip8pt != null)
                 {
@@ -60,14 +67,17 @@ public class scorecollision : MonoBehaviour
                     audioSourceStop.Stop();
 
                 }
-                else
-                {
-                    Debug.LogError("Audio clip for 8pt is not assigned.");
-                }
+                // else
+                // {
+                //     Debug.LogError("Audio clip for 8pt is not assigned.");
+                // }
                 break;
             case "6pt":
-                scoremanager.AddScore(6 - 2);
-                Debug.Log("Score updated for 6pt hit.");
+                // scoremanager.AddScore(6 - 2);
+                scoremanager.AddScore(6);
+                scoremanager.AddMessage("6 points");
+
+                // Debug.Log("Score updated for 6pt hit.");
                 if (audioClip6pt != null)
                 {
                     audioSource.PlayOneShot(audioClip6pt);
@@ -75,28 +85,87 @@ public class scorecollision : MonoBehaviour
                     audioSourceStop = gameObject.AddComponent<AudioSource>();
                     audioSourceStop.Stop();
                 }
-                else
-                {
-                    Debug.LogError("Audio clip for 6pt is not assigned.");
-                }
+                // else
+                // {
+                //     Debug.LogError("Audio clip for 6pt is not assigned.");
+                // }
                 break;
 
             case "2pt":
                 scoremanager.AddScore(2);
-                Debug.Log("Score updated for 2pt hit.");
+                scoremanager.AddMessage("2 points");
+
+                // Debug.Log("Score updated for 2pt hit.");
                 if (audioClip2pt != null)
                 {
                     audioSource.PlayOneShot(audioClip2pt);
                     Debug.Log("Playing audio for 2pt hit.");
                 }
-                else
-                {
-                    Debug.LogError("Audio clip for 2pt is not assigned.");
-                }
+                // else
+                // {
+                //     Debug.LogError("Audio clip for 2pt is not assigned.");
+                // }
                 break;
             default:
                 Debug.LogWarning("Unhandled tag: " + gameObject.tag);
                 break;
         }
+
+ switch (gameObject.tag)
+        {
+             case "lower":
+                x = "Aim higher";
+                scoremanager.hint(x);
+
+                break;
+
+            case "higher":
+                x = "Aim lower";
+                                scoremanager.hint(x);
+
+                break;
+
+            case "right":
+                x = "Aim left";
+                                scoremanager.hint(x);
+
+                break;
+
+            case "left":
+                x = "Aim right";
+                                scoremanager.hint(x);
+
+                break;
+
+            case "little_down":
+                x = "Aim little higher";
+                                scoremanager.hint(x);
+
+                break;
+
+            case "little_up":
+                x = "Aim little lower";
+                                scoremanager.hint(x);
+
+                break;
+
+            case "little_right":
+                x = "Aim little left";
+                                scoremanager.hint(x);
+
+                break;
+
+            case "little_left":
+                x = "Aim little right";
+                                scoremanager.hint(x);
+
+                break;
+
+            default:
+                Debug.LogWarning("Unhandled tag: " + collision.gameObject.tag);
+                break;
+        }
+
+
     }
 }
