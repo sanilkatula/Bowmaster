@@ -52,27 +52,33 @@ public class scoremanager : MonoBehaviour
         Debug.Log("Current Score: " + message);
     }
 
-        public static void hint(string str)
+    public static void hint(string str)
     {
         x = str;
         Debug.Log("Current Score: " + x);
+    }
+
+    public void UpdateHint(string str)
+    {
+        x = str;
+        UpdateScoreText();
     }
 
     void UpdateScoreText()
     {
         if (scoreText3D != null)
         {
-            scoreText3D.text = "Total Score: " + Score;
+            scoreText3D.text ="" + Score;
         }
 
         if (scoreText3D_2 != null)
         {
-            scoreText3D_2.text = "Current Hit: " + message;
+            scoreText3D_2.text = message;
         }
 
         if (scoreText3D_3 != null)
         {
-            scoreText3D_3.text = "Feedback: " + x;
+            scoreText3D_3.text = x;
         }
     }
 }
