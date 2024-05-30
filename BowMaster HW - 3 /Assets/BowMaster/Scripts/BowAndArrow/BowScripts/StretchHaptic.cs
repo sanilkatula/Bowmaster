@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-/// <summary>
-/// Vibrates XRBaseController when value amount is changing. amount also effects that sound's pitches.
-/// Made for bow stretching feel but could also make door or lever's creaking or for scaling feedback
-/// </summary>
+
 public class StretchHaptic : MonoBehaviour
 {
     public int clicksPerDraw = 10;
