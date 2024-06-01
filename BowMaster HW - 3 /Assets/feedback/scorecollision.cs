@@ -8,10 +8,9 @@ public class scorecollision : MonoBehaviour
     public AudioClip audioClip8pt;
     public AudioClip audioClip6pt;
     public AudioClip audioClip2pt;
-    public static string x = "";
 
+    public Transform targetCenter; // Reference to the center of the target
     private AudioSource audioSource;
-    public AudioSource audioSourceStop;
 
     void Start()
     {
@@ -20,152 +19,83 @@ public class scorecollision : MonoBehaviour
         {
             Debug.LogError("No AudioSource component found on this GameObject. Please add one.");
         }
+        if (targetCenter == null)
+        {
+            Debug.LogError("No target center set. Please assign the target center Transform in the inspector.");
+        }
+        else
+        {
+            Debug.Log($"Target center position: {targetCenter.position}");
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"Collision detected with {collision.gameObject.name} on {gameObject.name} with tag: {gameObject.tag}");
+        Debug.Log($"Collision detected with {collision.gameObject.name} on {gameObject.name}");
 
         if (audioSource == null)
         {
             Debug.LogError("AudioSource component is missing. Please add an AudioSource component to this GameObject.");
             return;
         }
-
-        switch (gameObject.tag)
+        if (targetCenter == null)
         {
-            case "10pt":
-                // scoremanager.AddScore(10 - 8);
-                scoremanager.AddScore(10);
-
-                scoremanager.AddMessage("10 points");
-                
-                // Debug.Log("Score updated for 10pt hit.");
-                if (audioClip10pt != null)
-                {
-                    audioSource.PlayOneShot(audioClip10pt);
-                    Debug.Log("Playing audio for 10pt hit.");
-                    audioSourceStop = gameObject.AddComponent<AudioSource>();
-                    audioSourceStop.Stop();
-
-                }
-                // else
-                // {
-                //     Debug.LogError("Audio clip for 10pt is not assigned.");
-                // }
-                break;
-            case "8pt":
-                // scoremanager.AddScore(8 - 6);
-                scoremanager.AddScore(8);
-                scoremanager.AddMessage("8 points");
-                Debug.Log("Score updated for 8pt hit.");
-                if (audioClip8pt != null)
-                {
-                    audioSource.PlayOneShot(audioClip8pt);
-                    Debug.Log("Playing audio for 8pt hit.");
-                    audioSourceStop = gameObject.AddComponent<AudioSource>();
-                    audioSourceStop.Stop();
-
-                }
-                // else
-                // {
-                //     Debug.LogError("Audio clip for 8pt is not assigned.");
-                // }
-                break;
-            case "6pt":
-                // scoremanager.AddScore(6 - 2);
-                scoremanager.AddScore(6);
-                scoremanager.AddMessage("6 points");
-
-                // Debug.Log("Score updated for 6pt hit.");
-                if (audioClip6pt != null)
-                {
-                    audioSource.PlayOneShot(audioClip6pt);
-                    Debug.Log("Playing audio for 6pt hit.");
-                    audioSourceStop = gameObject.AddComponent<AudioSource>();
-                    audioSourceStop.Stop();
-                }
-                // else
-                // {
-                //     Debug.LogError("Audio clip for 6pt is not assigned.");
-                // }
-                break;
-
-            case "2pt":
-                scoremanager.AddScore(2);
-                scoremanager.AddMessage("2 points");
-
-                // Debug.Log("Score updated for 2pt hit.");
-                if (audioClip2pt != null)
-                {
-                    audioSource.PlayOneShot(audioClip2pt);
-                    Debug.Log("Playing audio for 2pt hit.");
-                }
-                // else
-                // {
-                //     Debug.LogError("Audio clip for 2pt is not assigned.");
-                // }
-                break;
-            default:
-                Debug.LogWarning("Unhandled tag: " + gameObject.tag);
-                break;
+            Debug.LogError("Target center is not assigned.");
+            return;
         }
 
- switch (gameObject.tag)
+        // Calculate the distance from the collision point to the center of the target in 3D space
+        Vector3 collisionPoint = collision.contacts[0].point;
+        float distance = Vector3.Distance(collisionPoint, targetCenter.position);
+
+        Debug.Log($"Collision point: {collisionPoint}, Target center: {targetCenter.position}, Distance: {distance}");
+
+        // Assign points based on the distance
+        int points = 0;
+        AudioClip clipToPlay = null;
+
+        if (distance <= 0.2) // Gold radius
         {
-             case "lower":
-                x = "Aim higher";
-                scoremanager.hint(x);
-
-                break;
-
-            case "higher":
-                x = "Aim lower";
-                                scoremanager.hint(x);
-
-                break;
-
-            case "right":
-                x = "Aim left";
-                                scoremanager.hint(x);
-
-                break;
-
-            case "left":
-                x = "Aim right";
-                                scoremanager.hint(x);
-
-                break;
-
-            case "little_down":
-                x = "Aim little higher";
-                                scoremanager.hint(x);
-
-                break;
-
-            case "little_up":
-                x = "Aim little lower";
-                                scoremanager.hint(x);
-
-                break;
-
-            case "little_right":
-                x = "Aim little left";
-                                scoremanager.hint(x);
-
-                break;
-
-            case "little_left":
-                x = "Aim little right";
-                                scoremanager.hint(x);
-
-                break;
-
-            default:
-                Debug.LogWarning("Unhandled tag: " + collision.gameObject.tag);
-                break;
+            points = 10;
+            clipToPlay = audioClip10pt;
+            scoremanager.AddMessage("10 points");
+            Debug.Log("Hit in gold zone: 10 points");
+        }
+        else if (distance <= 0.37f) // Red radius
+        {
+            points = 8;
+            clipToPlay = audioClip8pt;
+            scoremanager.AddMessage("8 points");
+            Debug.Log("Hit in red zone: 8 points");
+        }
+        else if (distance <= 0.5994f) // Blue radius
+        {
+            points = 6;
+            clipToPlay = audioClip6pt;
+            scoremanager.AddMessage("6 points");
+            Debug.Log("Hit in blue zone: 6 points");
+        }
+        else if (distance <= 0.896f) // Black radius
+        {
+            points = 2;
+            clipToPlay = audioClip2pt;
+            scoremanager.AddMessage("2 points");
+            Debug.Log("Hit in black zone: 2 points");
+        }
+        else
+        {
+            Debug.LogWarning("Collision point is outside the scoring area.");
         }
 
-
+        // Update the score and play the corresponding audio
+        if (points > 0)
+        {
+            scoremanager.AddScore(points);
+            if (clipToPlay != null)
+            {
+                audioSource.PlayOneShot(clipToPlay);
+                Debug.Log($"Playing audio for {points}pt hit.");
+            }
+        }
     }
 }

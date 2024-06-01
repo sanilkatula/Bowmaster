@@ -2,11 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Plays audio when normalized value amount is changing. amount also effects that sound's pitches.
-/// Also Curves volume when becoming quiet to stop ugly sound cracking.
-/// Made for bow stretching sound but could also make door, floor, or lever's creaking or a scaling noises
-/// </summary>
 
 public class StretchSound : MonoBehaviour
 {
