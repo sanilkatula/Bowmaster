@@ -88,9 +88,9 @@ These steps provide a basic understanding of how to interact with the game's pri
 ## Contributors
 
 Team Member:
-- Ishan Jain
-- Jenil Prajapati
 - Sanil Katula
+- Jenil Prajapati
 - Sarvesh Jayaram
+- Ishan Jain
 - Aryan Chopra
 
