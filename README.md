@@ -2,14 +2,14 @@
 
 Welcome to **BowMaster**!
 
-![image](https://github.com/sanilkatula/Bowmaster/assets/124840083/7845a203-c95a-403f-93ef-3aa957e63b51)
-![image](https://github.com/sanilkatula/Bowmaster/assets/124840083/e243f071-65d9-4e82-91e3-26d7275f1aa5)
-![image](https://github.com/sanilkatula/Bowmaster/assets/124840083/a14cc1ba-eecf-485d-9716-d237fb3c8d14)
-
-
 ## Overview
 
 This project is a Unity-based Bow and Arrow game focusing on realistic physics and interactive gameplay. It features multiple scripts organized into specific functionalities, handling everything from object interaction and arrow dynamics to audio management and collision detection.
+
+
+![image](https://github.com/sanilkatula/Bowmaster/assets/124840083/7845a203-c95a-403f-93ef-3aa957e63b51)
+![image](https://github.com/sanilkatula/Bowmaster/assets/124840083/e243f071-65d9-4e82-91e3-26d7275f1aa5)
+![image](https://github.com/sanilkatula/Bowmaster/assets/124840083/a14cc1ba-eecf-485d-9716-d237fb3c8d14)
 
 ## Features
 
