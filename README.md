@@ -1,4 +1,4 @@
-# Bow and Arrow Game
+# BowMaster
 
 Welcome to **BowMaster**!
 
