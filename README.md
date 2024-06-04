@@ -26,7 +26,6 @@ This project is a Unity-based Bow and Arrow game focusing on realistic physics a
 ### ArrowScripts
 - `FlyStraight.cs`: Controls the arrow's flight, ensuring it points in the direction it's moving.
 - `NonKineCollision.cs`: Makes arrows kinematic upon collision and triggers collision-related events.
-- `RandomAudioPlayer.cs`: Plays random audio clips, used for various sound effects in the game.
 
 ### BowScripts
 - Manage the bow's interactions, such as how it can be grabbed, aiming mechanisms, and visual orientation relative to the player and targets.
